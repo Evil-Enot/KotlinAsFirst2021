@@ -6,6 +6,7 @@ import org.junit.jupiter.api.assertThrows
 import java.io.File
 
 class FilesTest {
+    // Функция для сравнения ожидаемых результатов и данных из файла
     private fun sevenTaskTests(lhv: Int, rhv: Int, result: String, pointer: Int) {
         if (File("temp.txt").exists()) File("temp.txt").delete()
 
@@ -23,6 +24,7 @@ class FilesTest {
 
     @Test
     fun printMultiplicationProcess() {
+        // Проверка корректных входных данных
         sevenTaskTests(
             1,
             25648,
@@ -91,11 +93,13 @@ class FilesTest {
             0
         )
 
-        // По условию числа больше 0, но вдруг какой-либо аргумент станет меньше или равен 0:
+        // Проверка некорректных входных данных
+        // Проверка, что будет выброшено исключение при отрицательном числе
         assertThrows<IllegalArgumentException> {
             printMultiplicationProcess(2353, -2, "temp.txt")
         }
 
+        // Проверка, что будет выброшено исключение при нуле
         assertThrows<IllegalArgumentException> {
             printDivisionProcess(0, 516, "temp.txt")
         }
@@ -103,6 +107,7 @@ class FilesTest {
 
     @Test
     fun printDivisionProcess() {
+        // Проверка корректных входных данных
         sevenTaskTests(
             12845,
             1,
@@ -181,15 +186,18 @@ class FilesTest {
             1
         )
 
-        // По условию числа больше 0, но вдруг какой-либо аргумент станет меньше либо равен 0:
+        // Проверка некорректных входных данных
+        // Проверка, что будет выброшено исключение при нуле
         assertThrows<ArithmeticException> {
             printDivisionProcess(126, 0, "temp.txt")
         }
 
+        // Проверка, что будет выброшено исключение при нуле
         assertThrows<IllegalArgumentException> {
             printDivisionProcess(0, 234, "temp.txt")
         }
 
+        // Проверка, что будет выброшено исключение при отрицательном числе
         assertThrows<IllegalArgumentException> {
             printDivisionProcess(126, -1, "temp.txt")
         }
