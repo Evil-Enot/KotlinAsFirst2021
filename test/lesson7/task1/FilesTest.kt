@@ -1,10 +1,12 @@
 package lesson7.task1
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.File
 
+@Tag("NewTests")
 class FilesTest {
     // Функция для сравнения ожидаемых результатов и данных из файла
     private fun sevenTaskTests(lhv: Int, rhv: Int, result: String, pointer: Int) {

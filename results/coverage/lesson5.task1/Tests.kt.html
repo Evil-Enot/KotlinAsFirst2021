@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tests.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">KotlinAsFirst2021$NewTests.exec</a> &gt; <a href="index.source.html" class="el_package">lesson5.task1</a> &gt; <span class="el_source">Tests.kt</span></div><h1>Tests.kt</h1><pre class="source lang-java linenums">package lesson5.task1
+
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Tag
+import org.junit.jupiter.api.Test
+//
+<span class="nc" id="L7">class Tests {</span>
+    @Test
+    @Tag(&quot;Example&quot;)
+    fun shoppingListCostTest() {
+<span class="nc" id="L11">        val itemCosts = mapOf(</span>
+<span class="nc" id="L12">            &quot;Хлеб&quot; to 50.0,</span>
+<span class="nc" id="L13">            &quot;Молоко&quot; to 100.0</span>
+        )
+<span class="nc" id="L15">        assertEquals(</span>
+<span class="nc" id="L16">            150.0,</span>
+<span class="nc" id="L17">            shoppingListCost(</span>
+<span class="nc" id="L18">                listOf(&quot;Хлеб&quot;, &quot;Молоко&quot;),</span>
+<span class="nc" id="L19">                itemCosts</span>
+            )
+        )
+<span class="nc" id="L22">        assertEquals(</span>
+<span class="nc" id="L23">            150.0,</span>
+<span class="nc" id="L24">            shoppingListCost(</span>
+<span class="nc" id="L25">                listOf(&quot;Хлеб&quot;, &quot;Молоко&quot;, &quot;Кефир&quot;),</span>
+<span class="nc" id="L26">                itemCosts</span>
+            )
+        )
+<span class="nc" id="L29">        assertEquals(</span>
+<span class="nc" id="L30">            0.0,</span>
+<span class="nc" id="L31">            shoppingListCost(</span>
+<span class="nc" id="L32">                listOf(&quot;Хлеб&quot;, &quot;Молоко&quot;, &quot;Кефир&quot;),</span>
+<span class="nc" id="L33">                mapOf()</span>
+            )
+        )
+<span class="nc" id="L36">    }</span>
+
+    @Test
+    @Tag(&quot;Example&quot;)
+    fun filterByCountryCode() {
+<span class="nc" id="L41">        val phoneBook = mutableMapOf(</span>
+<span class="nc" id="L42">            &quot;Quagmire&quot; to &quot;+1-800-555-0143&quot;,</span>
+<span class="nc" id="L43">            &quot;Adam's Ribs&quot; to &quot;+82-000-555-2960&quot;,</span>
+<span class="nc" id="L44">            &quot;Pharmakon Industries&quot; to &quot;+1-800-555-6321&quot;</span>
+        )
+
+<span class="nc" id="L47">        filterByCountryCode(phoneBook, &quot;+1&quot;)</span>
+<span class="nc" id="L48">        assertEquals(2, phoneBook.size)</span>
+
+<span class="nc" id="L50">        filterByCountryCode(phoneBook, &quot;+1&quot;)</span>
+<span class="nc" id="L51">        assertEquals(2, phoneBook.size)</span>
+
+<span class="nc" id="L53">        filterByCountryCode(phoneBook, &quot;+999&quot;)</span>
+<span class="nc" id="L54">        assertEquals(0, phoneBook.size)</span>
+<span class="nc" id="L55">    }</span>
+
+    @Test
+    @Tag(&quot;Example&quot;)
+    fun removeFillerWords() {
+<span class="nc" id="L60">        assertEquals(</span>
+<span class="nc" id="L61">            &quot;Я люблю Котлин&quot;.split(&quot; &quot;),</span>
+<span class="nc" id="L62">            removeFillerWords(</span>
+<span class="nc" id="L63">                &quot;Я как-то люблю Котлин&quot;.split(&quot; &quot;),</span>
+<span class="nc" id="L64">                &quot;как-то&quot;</span>
+            )
+        )
+<span class="nc" id="L67">        assertEquals(</span>
+<span class="nc" id="L68">            &quot;Я люблю Котлин&quot;.split(&quot; &quot;),</span>
+<span class="nc" id="L69">            removeFillerWords(</span>
+<span class="nc" id="L70">                &quot;Я как-то люблю таки Котлин&quot;.split(&quot; &quot;),</span>
+<span class="nc" id="L71">                &quot;как-то&quot;,</span>
+<span class="nc" id="L72">                &quot;таки&quot;</span>
+            )
+        )
+<span class="nc" id="L75">        assertEquals(</span>
+<span class="nc" id="L76">            &quot;Я люблю Котлин&quot;.split(&quot; &quot;),</span>
+<span class="nc" id="L77">            removeFillerWords(</span>
+<span class="nc" id="L78">                &quot;Я люблю Котлин&quot;.split(&quot; &quot;),</span>
+<span class="nc" id="L79">                &quot;как-то&quot;,</span>
+<span class="nc" id="L80">                &quot;таки&quot;</span>
+            )
+        )
+<span class="nc" id="L83">    }</span>
+
+    @Test
+    @Tag(&quot;Example&quot;)
+    fun buildWordSet() {
+<span class="nc" id="L88">        assertEquals(</span>
+<span class="nc" id="L89">            mutableSetOf(&quot;Я&quot;, &quot;люблю&quot;, &quot;Котлин&quot;),</span>
+<span class="nc" id="L90">            buildWordSet(&quot;Я люблю Котлин&quot;.split(&quot; &quot;))</span>
+        )
+<span class="nc" id="L92">        assertEquals(</span>
+<span class="nc" id="L93">            mutableSetOf(&quot;Котлин&quot;, &quot;люблю&quot;, &quot;Я&quot;),</span>
+<span class="nc" id="L94">            buildWordSet(&quot;Я люблю люблю Котлин&quot;.split(&quot; &quot;))</span>
+        )
+<span class="nc" id="L96">        assertEquals(</span>
+<span class="nc" id="L97">            mutableSetOf&lt;String&gt;(),</span>
+<span class="nc" id="L98">            buildWordSet(listOf())</span>
+        )
+<span class="nc" id="L100">    }</span>
+
+    @Test
+    @Tag(&quot;2&quot;)
+    fun buildGrades() {
+<span class="nc" id="L105">        assertEquals(</span>
+<span class="nc" id="L106">            mapOf&lt;Int, List&lt;String&gt;&gt;(),</span>
+<span class="nc" id="L107">            buildGrades(mapOf())</span>
+        )
+<span class="nc" id="L109">        assertEquals(</span>
+<span class="nc" id="L110">            mapOf(5 to listOf(&quot;Михаил&quot;, &quot;Семён&quot;), 3 to listOf(&quot;Марат&quot;)),</span>
+<span class="nc" id="L111">            buildGrades(mapOf(&quot;Марат&quot; to 3, &quot;Семён&quot; to 5, &quot;Михаил&quot; to 5))</span>
+<span class="nc" id="L112">                .mapValues { (_, v) -&gt; v.sorted() }</span>
+        )
+<span class="nc" id="L114">        assertEquals(</span>
+<span class="nc" id="L115">            mapOf(3 to listOf(&quot;Марат&quot;, &quot;Михаил&quot;, &quot;Семён&quot;)),</span>
+<span class="nc" id="L116">            buildGrades(mapOf(&quot;Марат&quot; to 3, &quot;Семён&quot; to 3, &quot;Михаил&quot; to 3))</span>
+<span class="nc" id="L117">                .mapValues { (_, v) -&gt; v.sorted() }</span>
+        )
+<span class="nc" id="L119">    }</span>
+
+    @Test
+    @Tag(&quot;2&quot;)
+    fun containsIn() {
+<span class="nc" id="L124">        assertTrue(containsIn(mapOf(&quot;a&quot; to &quot;z&quot;), mapOf(&quot;a&quot; to &quot;z&quot;, &quot;b&quot; to &quot;sweet&quot;)))</span>
+<span class="nc" id="L125">        assertFalse(containsIn(mapOf(&quot;a&quot; to &quot;z&quot;), mapOf(&quot;a&quot; to &quot;zee&quot;, &quot;b&quot; to &quot;sweet&quot;)))</span>
+<span class="nc" id="L126">    }</span>
+
+    @Test
+    @Tag(&quot;2&quot;)
+    fun subtractOf() {
+<span class="nc" id="L131">        val from = mutableMapOf(&quot;a&quot; to &quot;z&quot;, &quot;b&quot; to &quot;c&quot;)</span>
+
+<span class="nc" id="L133">        subtractOf(from, mapOf())</span>
+<span class="nc" id="L134">        assertEquals(mapOf(&quot;a&quot; to &quot;z&quot;, &quot;b&quot; to &quot;c&quot;), from)</span>
+
+<span class="nc" id="L136">        subtractOf(from, mapOf(&quot;b&quot; to &quot;z&quot;))</span>
+<span class="nc" id="L137">        assertEquals(mapOf(&quot;a&quot; to &quot;z&quot;, &quot;b&quot; to &quot;c&quot;), from)</span>
+
+<span class="nc" id="L139">        subtractOf(from, mapOf(&quot;a&quot; to &quot;z&quot;))</span>
+<span class="nc" id="L140">        assertEquals(mapOf(&quot;b&quot; to &quot;c&quot;), from)</span>
+<span class="nc" id="L141">    }</span>
+
+    @Test
+    @Tag(&quot;2&quot;)
+    fun whoAreInBoth() {
+<span class="nc" id="L146">        assertEquals(</span>
+<span class="nc" id="L147">            emptyList&lt;String&gt;(),</span>
+<span class="nc" id="L148">            whoAreInBoth(emptyList(), emptyList())</span>
+        )
+<span class="nc" id="L150">        assertEquals(</span>
+<span class="nc" id="L151">            listOf(&quot;Marat&quot;),</span>
+<span class="nc" id="L152">            whoAreInBoth(listOf(&quot;Marat&quot;, &quot;Mikhail&quot;), listOf(&quot;Marat&quot;, &quot;Kirill&quot;))</span>
+        )
+<span class="nc" id="L154">        assertEquals(</span>
+<span class="nc" id="L155">            emptyList&lt;String&gt;(),</span>
+<span class="nc" id="L156">            whoAreInBoth(listOf(&quot;Marat&quot;, &quot;Mikhail&quot;), listOf(&quot;Sveta&quot;, &quot;Kirill&quot;))</span>
+        )
+<span class="nc" id="L158">    }</span>
+
+    @Test
+    @Tag(&quot;3&quot;)
+    fun mergePhoneBooks() {
+<span class="nc" id="L163">        assertEquals(</span>
+<span class="nc" id="L164">            mapOf(&quot;Emergency&quot; to &quot;112&quot;),</span>
+<span class="nc" id="L165">            mergePhoneBooks(</span>
+<span class="nc" id="L166">                mapOf(&quot;Emergency&quot; to &quot;112&quot;),</span>
+<span class="nc" id="L167">                mapOf(&quot;Emergency&quot; to &quot;112&quot;)</span>
+            )
+        )
+<span class="nc" id="L170">        assertEquals(</span>
+<span class="nc" id="L171">            mapOf(&quot;Emergency&quot; to &quot;112&quot;, &quot;Police&quot; to &quot;02&quot;),</span>
+<span class="nc" id="L172">            mergePhoneBooks(</span>
+<span class="nc" id="L173">                mapOf(&quot;Emergency&quot; to &quot;112&quot;),</span>
+<span class="nc" id="L174">                mapOf(&quot;Emergency&quot; to &quot;112&quot;, &quot;Police&quot; to &quot;02&quot;)</span>
+            )
+        )
+<span class="nc" id="L177">        assertEquals(</span>
+<span class="nc" id="L178">            mapOf(&quot;Emergency&quot; to &quot;112, 911&quot;, &quot;Police&quot; to &quot;02&quot;),</span>
+<span class="nc" id="L179">            mergePhoneBooks(</span>
+<span class="nc" id="L180">                mapOf(&quot;Emergency&quot; to &quot;112&quot;),</span>
+<span class="nc" id="L181">                mapOf(&quot;Emergency&quot; to &quot;911&quot;, &quot;Police&quot; to &quot;02&quot;)</span>
+            )
+        )
+<span class="nc" id="L184">        assertEquals(</span>
+<span class="nc" id="L185">            mapOf(&quot;Emergency&quot; to &quot;112, 911&quot;, &quot;Fire department&quot; to &quot;01&quot;, &quot;Police&quot; to &quot;02&quot;),</span>
+<span class="nc" id="L186">            mergePhoneBooks(</span>
+<span class="nc" id="L187">                mapOf(&quot;Emergency&quot; to &quot;112&quot;, &quot;Fire department&quot; to &quot;01&quot;),</span>
+<span class="nc" id="L188">                mapOf(&quot;Emergency&quot; to &quot;911&quot;, &quot;Police&quot; to &quot;02&quot;)</span>
+            )
+        )
+<span class="nc" id="L191">    }</span>
+
+    @Test
+    @Tag(&quot;4&quot;)
+    fun averageStockPrice() {
+<span class="nc" id="L196">        assertEquals(</span>
+<span class="nc" id="L197">            mapOf&lt;String, Double&gt;(),</span>
+<span class="nc" id="L198">            averageStockPrice(listOf())</span>
+        )
+<span class="nc" id="L200">        assertEquals(</span>
+<span class="nc" id="L201">            mapOf(&quot;MSFT&quot; to 100.0, &quot;NFLX&quot; to 40.0),</span>
+<span class="nc" id="L202">            averageStockPrice(listOf(&quot;MSFT&quot; to 100.0, &quot;NFLX&quot; to 40.0))</span>
+        )
+<span class="nc" id="L204">        assertEquals(</span>
+<span class="nc" id="L205">            mapOf(&quot;MSFT&quot; to 150.0, &quot;NFLX&quot; to 40.0),</span>
+<span class="nc" id="L206">            averageStockPrice(listOf(&quot;MSFT&quot; to 100.0, &quot;MSFT&quot; to 200.0, &quot;NFLX&quot; to 40.0))</span>
+        )
+<span class="nc" id="L208">        assertEquals(</span>
+<span class="nc" id="L209">            mapOf(&quot;MSFT&quot; to 150.0, &quot;NFLX&quot; to 45.0),</span>
+<span class="nc" id="L210">            averageStockPrice(listOf(&quot;MSFT&quot; to 100.0, &quot;MSFT&quot; to 200.0, &quot;NFLX&quot; to 40.0, &quot;NFLX&quot; to 50.0))</span>
+        )
+<span class="nc" id="L212">    }</span>
+
+    @Test
+    @Tag(&quot;4&quot;)
+    fun findCheapestStuff() {
+<span class="nc" id="L217">        assertNull(</span>
+<span class="nc" id="L218">            findCheapestStuff(</span>
+<span class="nc" id="L219">                mapOf(&quot;Мария&quot; to (&quot;печенье&quot; to 20.0), &quot;Орео&quot; to (&quot;печенье&quot; to 100.0)),</span>
+<span class="nc" id="L220">                &quot;торт&quot;</span>
+            )
+        )
+<span class="nc" id="L223">        assertEquals(</span>
+<span class="nc" id="L224">            &quot;Мария&quot;,</span>
+<span class="nc" id="L225">            findCheapestStuff(</span>
+<span class="nc" id="L226">                mapOf(&quot;Мария&quot; to (&quot;печенье&quot; to 20.0), &quot;Орео&quot; to (&quot;печенье&quot; to 100.0)),</span>
+<span class="nc" id="L227">                &quot;печенье&quot;</span>
+            )
+        )
+<span class="nc" id="L230">    }</span>
+
+    @Test
+    @Tag(&quot;3&quot;)
+    fun canBuildFrom() {
+<span class="nc" id="L235">        assertFalse(canBuildFrom(emptyList(), &quot;foo&quot;))</span>
+<span class="nc" id="L236">        assertTrue(canBuildFrom(listOf('a', 'b', 'o'), &quot;baobab&quot;))</span>
+<span class="nc" id="L237">        assertFalse(canBuildFrom(listOf('a', 'm', 'r'), &quot;Marat&quot;))</span>
+<span class="nc" id="L238">    }</span>
+
+    @Test
+    @Tag(&quot;4&quot;)
+    fun extractRepeats() {
+<span class="nc" id="L243">        assertEquals(</span>
+<span class="nc" id="L244">            mapOf(&quot;a&quot; to 4, &quot;b&quot; to 2),</span>
+<span class="nc" id="L245">            extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;b&quot;))</span>
+        )
+<span class="nc" id="L247">        assertEquals(</span>
+<span class="nc" id="L248">            mapOf(&quot;a&quot; to 4),</span>
+<span class="nc" id="L249">            extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;))</span>
+        )
+<span class="nc" id="L251">        assertEquals(</span>
+<span class="nc" id="L252">            emptyMap&lt;String, Int&gt;(),</span>
+<span class="nc" id="L253">            extractRepeats(emptyList())</span>
+        )
+<span class="nc" id="L255">        assertEquals(</span>
+<span class="nc" id="L256">            mapOf(&quot;a&quot; to 2),</span>
+<span class="nc" id="L257">            extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;))</span>
+        )
+<span class="nc" id="L259">        assertEquals(</span>
+<span class="nc" id="L260">            emptyMap&lt;String, Int&gt;(),</span>
+<span class="nc" id="L261">            extractRepeats(listOf(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))</span>
+        )
+<span class="nc" id="L263">    }</span>
+
+    @Test
+    @Tag(&quot;3&quot;)
+    fun hasAnagrams() {
+<span class="nc" id="L268">        assertFalse(hasAnagrams(emptyList()))</span>
+<span class="nc" id="L269">        assertTrue(hasAnagrams(listOf(&quot;рот&quot;, &quot;свет&quot;, &quot;тор&quot;)))</span>
+<span class="nc" id="L270">        assertFalse(hasAnagrams(listOf(&quot;рот&quot;, &quot;свет&quot;, &quot;код&quot;, &quot;дверь&quot;)))</span>
+<span class="nc" id="L271">        assertFalse(hasAnagrams(listOf(&quot;поле&quot;, &quot;полено&quot;)))</span>
+<span class="nc" id="L272">        assertTrue(hasAnagrams(listOf(&quot;лунь&quot;, &quot;нуль&quot;)))</span>
+<span class="nc" id="L273">    }</span>
+
+    @Test
+    @Tag(&quot;5&quot;)
+    fun propagateHandshakes() {
+<span class="nc" id="L278">        assertEquals(</span>
+<span class="nc" id="L279">            mapOf(</span>
+<span class="nc" id="L280">                &quot;Marat&quot; to setOf(&quot;Mikhail&quot;, &quot;Sveta&quot;),</span>
+<span class="nc" id="L281">                &quot;Sveta&quot; to setOf(&quot;Mikhail&quot;),</span>
+<span class="nc" id="L282">                &quot;Mikhail&quot; to setOf()</span>
+            ),
+<span class="nc" id="L284">            propagateHandshakes(</span>
+<span class="nc" id="L285">                mapOf(</span>
+<span class="nc" id="L286">                    &quot;Marat&quot; to setOf(&quot;Sveta&quot;),</span>
+<span class="nc" id="L287">                    &quot;Sveta&quot; to setOf(&quot;Mikhail&quot;)</span>
+                )
+            )
+        )
+<span class="nc" id="L291">        assertEquals(</span>
+<span class="nc" id="L292">            mapOf(</span>
+<span class="nc" id="L293">                &quot;Marat&quot; to setOf(&quot;Mikhail&quot;, &quot;Sveta&quot;),</span>
+<span class="nc" id="L294">                &quot;Sveta&quot; to setOf(&quot;Marat&quot;, &quot;Mikhail&quot;),</span>
+<span class="nc" id="L295">                &quot;Mikhail&quot; to setOf(&quot;Sveta&quot;, &quot;Marat&quot;),</span>
+<span class="nc" id="L296">                &quot;Friend&quot; to setOf(&quot;GoodGnome&quot;),</span>
+<span class="nc" id="L297">                &quot;EvilGnome&quot; to setOf(),</span>
+<span class="nc" id="L298">                &quot;GoodGnome&quot; to setOf()</span>
+            ),
+<span class="nc" id="L300">            propagateHandshakes(</span>
+<span class="nc" id="L301">                mapOf(</span>
+<span class="nc" id="L302">                    &quot;Marat&quot; to setOf(&quot;Mikhail&quot;, &quot;Sveta&quot;),</span>
+<span class="nc" id="L303">                    &quot;Sveta&quot; to setOf(&quot;Marat&quot;),</span>
+<span class="nc" id="L304">                    &quot;Mikhail&quot; to setOf(&quot;Sveta&quot;),</span>
+<span class="nc" id="L305">                    &quot;Friend&quot; to setOf(&quot;GoodGnome&quot;),</span>
+<span class="nc" id="L306">                    &quot;EvilGnome&quot; to setOf()</span>
+                )
+            )
+        )
+<span class="nc" id="L310">    }</span>
+
+    @Test
+    @Tag(&quot;6&quot;)
+    fun findSumOfTwo() {
+<span class="nc" id="L315">        assertEquals(</span>
+<span class="nc" id="L316">            Pair(-1, -1),</span>
+<span class="nc" id="L317">            findSumOfTwo(listOf(7), 6)</span>
+        )
+<span class="nc" id="L319">        assertEquals(</span>
+<span class="nc" id="L320">            Pair(1, 4),</span>
+<span class="nc" id="L321">            findSumOfTwo(listOf(7, 1, 3, 4, 5), 6)</span>
+        )
+<span class="nc" id="L323">        assertEquals(</span>
+<span class="nc" id="L324">            Pair(-1, -1),</span>
+<span class="nc" id="L325">            findSumOfTwo(listOf(1, 2, 3), 6)</span>
+        )
+<span class="nc" id="L327">        assertEquals(</span>
+<span class="nc" id="L328">            Pair(-1, -1),</span>
+<span class="nc" id="L329">            findSumOfTwo(emptyList(), 1)</span>
+        )
+<span class="nc" id="L331">        assertEquals(</span>
+<span class="nc" id="L332">            Pair(0, 2),</span>
+<span class="nc" id="L333">            findSumOfTwo(listOf(1, 2, 3), 4)</span>
+        )
+<span class="nc" id="L335">        assertEquals(</span>
+<span class="nc" id="L336">            Pair(1, 3),</span>
+<span class="nc" id="L337">            findSumOfTwo(listOf(1, 2, 3, 4, 5), 6)</span>
+        )
+<span class="nc" id="L339">        assertEquals(</span>
+<span class="nc" id="L340">            Pair(6, 7),</span>
+<span class="nc" id="L341">            findSumOfTwo(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9), 15)</span>
+        )
+<span class="nc" id="L343">        assertEquals(</span>
+<span class="nc" id="L344">            Pair(-1, -1),</span>
+<span class="nc" id="L345">            findSumOfTwo(emptyList(), 4)</span>
+        )
+<span class="nc" id="L347">        assertEquals(</span>
+<span class="nc" id="L348">            Pair(1, 3),</span>
+<span class="nc" id="L349">            findSumOfTwo(listOf(1, 2, 5, 2, 1), 4)</span>
+        )
+<span class="nc" id="L351">        assertEquals(</span>
+<span class="nc" id="L352">            Pair(0, 1),</span>
+<span class="nc" id="L353">            findSumOfTwo(listOf(1, 0), 1)</span>
+        )
+<span class="nc" id="L355">    }</span>
+
+    @Test
+    @Tag(&quot;8&quot;)
+    fun bagPacking() {
+<span class="nc" id="L360">        assertEquals(</span>
+<span class="nc" id="L361">            setOf(&quot;Кубок&quot;),</span>
+<span class="nc" id="L362">            bagPacking(</span>
+<span class="nc" id="L363">                mapOf(&quot;Кубок&quot; to (500 to 2000), &quot;Слиток&quot; to (1000 to 5000)),</span>
+<span class="nc" id="L364">                850</span>
+            )
+        )
+<span class="nc" id="L367">        assertEquals(</span>
+<span class="nc" id="L368">            emptySet&lt;String&gt;(),</span>
+<span class="nc" id="L369">            bagPacking(</span>
+<span class="nc" id="L370">                mapOf(&quot;Кубок&quot; to (500 to 2000), &quot;Слиток&quot; to (1000 to 5000)),</span>
+<span class="nc" id="L371">                450</span>
+            )
+        )
+<span class="nc" id="L374">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
